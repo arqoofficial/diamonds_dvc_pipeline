@@ -33,7 +33,7 @@ if __name__ == "__main__":
             unzip=True,
         )
         logger.success(
-            f"Diamonds dataset was successfully downloaded into `{data_path}`W"
+            f"Diamonds dataset was successfully downloaded into `{data_path}`"
         )
     except Exception as e:
         handle_exception(
