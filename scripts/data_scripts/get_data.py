@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 from kaggle.api.kaggle_api_extended import KaggleApi
 from loguru import logger
@@ -11,9 +11,8 @@ def handle_exception(e: Exception, message: str) -> None:
     raise SystemExit
 
 
-if __name__ == "__main__":
-    logger.info("Start get_data.py script")
-
+def auth_kaggle() -> KaggleApi:
+    """Authentication in KaggleApi"""
     try:
         api = KaggleApi()
         api.authenticate()
@@ -23,10 +22,14 @@ if __name__ == "__main__":
             e,
             "You need to provide correct kaggle.json with authentication info",
         )
+    return api
 
+
+def download_dataset(api: KaggleApi) -> None:
+    """Download Diamonds.csv dataset into ../../data/raw/ folder"""
+    data_path = Path(__file__).parents[2] / "data" / "raw"
+    logger.info("Start Diamonds dataset download")
     try:
-        data_path = os.path.abspath("../../data/raw/")
-        logger.info("Start Diamonds dataset download")
         api.dataset_download_files(
             dataset="shivam2503/diamonds",
             path=data_path,
@@ -40,3 +43,8 @@ if __name__ == "__main__":
             e,
             "Something went wrong with kaggle dataset download",
         )
+
+
+if __name__ == "__main__":
+    logger.info("Start get_data.py script")
+    download_dataset(auth_kaggle())
