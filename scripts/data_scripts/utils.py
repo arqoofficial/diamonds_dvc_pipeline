@@ -32,6 +32,7 @@ def check_input(
 
 
 def handle_exception(e: Exception, message: Optional[str] = None) -> None:
+    """Handles exception, shows message if specified, raises SystemExit"""
     error_type = type(e).__name__
     logger.error(f"An error occurred: {error_type}. {e}")
     if message:
@@ -58,6 +59,7 @@ def df_from_path(f_input: str, print_info: bool = False) -> pd.DataFrame:
 
 
 def save_csv(df: pd.DataFrame, f_output: str) -> None:
+    """Saves DataFrame to csv into specified path"""
     f_output = os.path.abspath(f_output)
     df.to_csv(f_output, index=False)
     logger.success(f"Result DataFrame was saved as `{f_output}`")
@@ -69,6 +71,7 @@ def csv_pipeline(
     f_output: str,
     params: Optional[dict] = None,
 ) -> None:
+    """Gets specific function and performs it with csv read and saving"""
     df = df_from_path(f_input)
     if params:
         df = func(df, params)
