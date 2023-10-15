@@ -2,12 +2,12 @@ import io
 import os
 import sys
 from pathlib import Path
-import yaml
 
 import pandas as pd
+import yaml
 from loguru import logger
 
-from utils import handle_exception, csv_pipeline, check_input
+from utils import check_input, csv_pipeline, handle_exception
 
 
 def drop_outliers(df: pd.DataFrame, params: dict) -> None:

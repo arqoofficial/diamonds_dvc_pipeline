@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
 
-from utils import handle_exception, csv_pipeline, check_input
+from utils import check_input, csv_pipeline, handle_exception
 
 
 def drop_na(df: pd.DataFrame) -> pd.DataFrame:
