@@ -3,12 +3,7 @@ from pathlib import Path
 from kaggle.api.kaggle_api_extended import KaggleApi
 from loguru import logger
 
-
-def handle_exception(e: Exception, message: str) -> None:
-    error_type = type(e).__name__
-    logger.error(f"An error occurred: {error_type}. {e}")
-    logger.warning(message)
-    raise SystemExit
+from utils import handle_exception
 
 
 def auth_kaggle() -> KaggleApi:
