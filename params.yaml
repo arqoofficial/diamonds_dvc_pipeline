@@ -25,6 +25,12 @@ split:
   seed: 42
   split_ratio: 0.3
 
+pipeline:
+  PF_degree: 3
+  PF_interaction: false
+  scalers: minmax
+
 train:
   seed: 42
-  max_depth: 4
+  weights: distance
+  n_neighbors: 8

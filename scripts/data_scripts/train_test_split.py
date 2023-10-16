@@ -47,7 +47,7 @@ def main():
     # paths
     f_input = check_input(2, "train_test_split.py", ["data-file"])
     base_path = Path(__file__).parents[2]
-    stage_path = base_path / "data" / "stage4"
+    stage_path = base_path / "data" / "stage5"
     stage_path.mkdir(parents=True, exist_ok=True)
 
     f_output_train = stage_path / "train.csv"

@@ -37,7 +37,8 @@ def handle_exception(e: Exception, message: Optional[str] = None) -> None:
     logger.error(f"An error occurred: {error_type}. {e}")
     if message:
         logger.warning(message)
-    raise SystemExit
+    raise type(e)
+    # raise SystemExit
 
 
 def df_from_path(f_input: str, print_info: bool = False) -> pd.DataFrame:
