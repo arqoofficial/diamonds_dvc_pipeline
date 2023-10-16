@@ -1,0 +1,45 @@
+dvc stage add \
+--name drop-dup \
+--deps data/raw/diamonds.csv \
+--deps scripts/data_scripts/drop_dup.py \
+--outs data/stage1/ \
+'python3 scripts/data_scripts/drop_dup.py data/raw/diamonds.csv'
+
+dvc stage add \
+--name drop-na \
+--deps data/stage1/diamonds.csv \
+--deps scripts/data_scripts/drop_na.py \
+--outs data/stage2/ \
+'python3 scripts/data_scripts/drop_na.py data/stage1/diamonds.csv'
+
+dvc stage add \
+--name drop-outliers \
+--deps data/stage2/diamonds.csv \
+--deps scripts/data_scripts/drop_outliers.py \
+--outs data/stage3/ \
+--params drop_outliers.carat.min \
+--params drop_outliers.carat.max \
+--params drop_outliers.depth.min \
+--params drop_outliers.depth.max \
+--params drop_outliers.table.min \
+--params drop_outliers.table.max \
+--params drop_outliers.price.min \
+--params drop_outliers.price.max \
+--params drop_outliers.x.min \
+--params drop_outliers.x.min \
+--params drop_outliers.y.max \
+--params drop_outliers.y.max \
+--params drop_outliers.z.max \
+--params drop_outliers.z.max \
+--force \
+'python3 scripts/data_scripts/drop_outliers.py data/stage2/diamonds.csv'
+
+dvc stage add \
+--name split \
+--deps data/stage3/diamonds.csv \
+--deps scripts/data_scripts/drop_outliers.py \
+--outs data/stage4/ \
+--params split.seed \
+--params split.split_ratio \
+--force \
+'python3 scripts/data_scripts/drop_outliers.py data/stage3/diamonds.csv'

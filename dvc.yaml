@@ -1,0 +1,47 @@
+stages:
+  drop-dup:
+    cmd: python3 scripts/data_scripts/drop_dup.py data/raw/diamonds.csv
+    deps:
+    - data/raw/diamonds.csv
+    - scripts/data_scripts/drop_dup.py
+    outs:
+    - data/stage1/
+  drop-na:
+    cmd: python3 scripts/data_scripts/drop_na.py data/stage1/diamonds.csv
+    deps:
+    - data/stage1/diamonds.csv
+    - scripts/data_scripts/drop_na.py
+    outs:
+    - data/stage2/
+  drop-outliers:
+    cmd: python3 scripts/data_scripts/drop_outliers.py data/stage2/diamonds.csv
+    deps:
+    - data/stage2/diamonds.csv
+    - scripts/data_scripts/drop_outliers.py
+    outs:
+    - data/stage3/
+    params:
+    - drop_outliers.carat.max
+    - drop_outliers.carat.min
+    - drop_outliers.depth.max
+    - drop_outliers.depth.min
+    - drop_outliers.price.max
+    - drop_outliers.price.min
+    - drop_outliers.table.max
+    - drop_outliers.table.min
+    - drop_outliers.x.min
+    - drop_outliers.x.min
+    - drop_outliers.y.max
+    - drop_outliers.y.max
+    - drop_outliers.z.max
+    - drop_outliers.z.max
+  split:
+    cmd: python3 scripts/data_scripts/train_test_split.py data/stage3/diamonds.csv
+    deps:
+    - data/stage3/diamonds.csv
+    - scripts/data_scripts/train_test_split.py
+    params:
+    - split.seed
+    - split.split_ratio
+    outs:
+    - data/stage4/

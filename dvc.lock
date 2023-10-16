@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  drop-dup:
+    cmd: python3 scripts/data_scripts/drop_dup.py data/raw/diamonds.csv
+    deps:
+    - path: data/raw/diamonds.csv
+      hash: md5
+      md5: bb67f2679c70a62b35220f7e90a6174a
+      size: 3192560
+    - path: scripts/data_scripts/drop_dup.py
+      hash: md5
+      md5: bebb8e142330b3731dba5dbd47cee1f0
+      size: 1084
+    outs:
+    - path: data/stage1/
+      hash: md5
+      md5: ecca97e1e526cb852d82e606350ace0d.dir
+      size: 2565059
+      nfiles: 1
+  drop-na:
+    cmd: python3 scripts/data_scripts/drop_na.py data/stage1/diamonds.csv
+    deps:
+    - path: data/stage1/diamonds.csv
+      hash: md5
+      md5: a914e1a1f8a4605df22bc632448b85e0
+      size: 2565059
+    - path: scripts/data_scripts/drop_na.py
+      hash: md5
+      md5: 0e887d8dac981cc7161048b3cd983cd7
+      size: 1017
+    outs:
+    - path: data/stage2/
+      hash: md5
+      md5: ecca97e1e526cb852d82e606350ace0d.dir
+      size: 2565059
+      nfiles: 1
+  drop-outliers:
+    cmd: python3 scripts/data_scripts/drop_outliers.py data/stage2/diamonds.csv
+    deps:
+    - path: data/stage2/diamonds.csv
+      hash: md5
+      md5: a914e1a1f8a4605df22bc632448b85e0
+      size: 2565059
+    - path: scripts/data_scripts/drop_outliers.py
+      hash: md5
+      md5: 98259453b90585053598f7bc3dfdfeb8
+      size: 1795
+    params:
+      params.yaml:
+        drop_outliers.carat.max: 3
+        drop_outliers.carat.min: 0
+        drop_outliers.depth.max: 70
+        drop_outliers.depth.min: 55
+        drop_outliers.price.max:
+        drop_outliers.price.min:
+        drop_outliers.table.max: 70
+        drop_outliers.table.min: 50
+        drop_outliers.x.min: 3
+        drop_outliers.y.max: 10
+        drop_outliers.z.max: 6
+    outs:
+    - path: data/stage3/
+      hash: md5
+      md5: 0cbe15cde840068bfec9ed342c9ac686.dir
+      size: 2559339
+      nfiles: 1
+  split:
+    cmd: python3 scripts/data_scripts/train_test_split.py data/stage3/diamonds.csv
+    deps:
+    - path: data/stage3/diamonds.csv
+      hash: md5
+      md5: 6ef72a1ffda63c15c266d49872e47902
+      size: 2559339
+    - path: scripts/data_scripts/train_test_split.py
+      hash: md5
+      md5: 7afe8e5a3951afb7ae1ef36a4edb66c2
+      size: 2006
+    params:
+      params.yaml:
+        split.seed: 42
+        split.split_ratio: 0.3
+    outs:
+    - path: data/stage4/
+      hash: md5
+      md5: e5542bd4090211bb7e1ec5572adae07d.dir
+      size: 2559387
+      nfiles: 2
