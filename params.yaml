@@ -21,10 +21,9 @@ drop_outliers:
     min: 2
     max: 6
 
-
 split:
-  split_ratio: 0.3
   seed: 42
+  split_ratio: 0.3
 
 train:
   seed: 42
