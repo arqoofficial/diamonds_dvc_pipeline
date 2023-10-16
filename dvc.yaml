@@ -1,6 +1,0 @@
-stages:
-  drop_dup_and_na:
-    cmd: scripts/data_scripts/drop_dup_and_na.py -o data/stage1 python3 scripts/data_scripts/drop_dup_and_na.py
-      data/raw/diamonds.csv
-    deps:
-    - data/raw/diamonds.csv
