@@ -18,8 +18,6 @@ stages:
     deps:
     - data/stage2/diamonds.csv
     - scripts/data_scripts/drop_outliers.py
-    outs:
-    - data/stage3/
     params:
     - drop_outliers.carat.max
     - drop_outliers.carat.min
@@ -35,13 +33,26 @@ stages:
     - drop_outliers.y.max
     - drop_outliers.z.max
     - drop_outliers.z.max
-  split:
-    cmd: python3 scripts/data_scripts/train_test_split.py data/stage3/diamonds.csv
+    outs:
+    - data/stage3/
+  preprocessors:
+    cmd: python3 scripts/data_scripts/preprocessors.py data/stage3/diamonds.csv
     deps:
     - data/stage3/diamonds.csv
+    - scripts/data_scripts/preprocessors.py
+    params:
+    - preprocessors.PF_degree
+    - preprocessors.PF_interaction
+    - preprocessors.scalers
+    outs:
+    - data/stage4/
+  split:
+    cmd: python3 scripts/data_scripts/train_test_split.py data/stage4/diamonds.csv
+    deps:
+    - data/stage4/diamonds.csv
     - scripts/data_scripts/train_test_split.py
     params:
     - split.seed
     - split.split_ratio
     outs:
-    - data/stage4/
+    - data/stage5/

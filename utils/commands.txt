@@ -35,11 +35,22 @@ dvc stage add \
 'python3 scripts/data_scripts/drop_outliers.py data/stage2/diamonds.csv'
 
 dvc stage add \
---name split \
+--name preprocessors \
 --deps data/stage3/diamonds.csv \
---deps scripts/data_scripts/drop_outliers.py \
+--deps scripts/data_scripts/preprocessors.py \
 --outs data/stage4/ \
+--params preprocessors.PF_degree \
+--params preprocessors.PF_interaction \
+--params preprocessors.scalers \
+--force \
+'python3 scripts/data_scripts/preprocessors.py data/stage3/diamonds.csv'
+
+dvc stage add \
+--name split \
+--deps data/stage4/diamonds.csv \
+--deps scripts/data_scripts/train_test_split.py \
+--outs data/stage5/ \
 --params split.seed \
 --params split.split_ratio \
 --force \
-'python3 scripts/data_scripts/drop_outliers.py data/stage3/diamonds.csv'
+'python3 scripts/data_scripts/train_test_split.py data/stage4/diamonds.csv'

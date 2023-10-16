@@ -64,24 +64,46 @@ stages:
       md5: 0cbe15cde840068bfec9ed342c9ac686.dir
       size: 2559339
       nfiles: 1
-  split:
-    cmd: python3 scripts/data_scripts/train_test_split.py data/stage3/diamonds.csv
+  preprocessors:
+    cmd: python3 scripts/data_scripts/preprocessors.py data/stage3/diamonds.csv
     deps:
     - path: data/stage3/diamonds.csv
       hash: md5
       md5: 6ef72a1ffda63c15c266d49872e47902
       size: 2559339
+    - path: scripts/data_scripts/preprocessors.py
+      hash: md5
+      md5: ab1b891bb80ca6cf4d4644a936fe6b4e
+      size: 2939
+    params:
+      params.yaml:
+        preprocessors.PF_degree: 3
+        preprocessors.PF_interaction: false
+        preprocessors.scalers: minmax
+    outs:
+    - path: data/stage4/
+      hash: md5
+      md5: dfdf94951d744d82b464a8b8c1d1f283.dir
+      size: 91629729
+      nfiles: 1
+  split:
+    cmd: python3 scripts/data_scripts/train_test_split.py data/stage4/diamonds.csv
+    deps:
+    - path: data/stage4/diamonds.csv
+      hash: md5
+      md5: 1b72c524243729b540f6d2903718bec9
+      size: 91629729
     - path: scripts/data_scripts/train_test_split.py
       hash: md5
-      md5: 7afe8e5a3951afb7ae1ef36a4edb66c2
+      md5: 5d8c9a0c7e9f14821d3f0e565faea32b
       size: 2006
     params:
       params.yaml:
         split.seed: 42
         split.split_ratio: 0.3
     outs:
-    - path: data/stage4/
+    - path: data/stage5/
       hash: md5
-      md5: e5542bd4090211bb7e1ec5572adae07d.dir
-      size: 2559387
+      md5: 48000e8ed26ba692737d41997f9cbd52.dir
+      size: 88105754
       nfiles: 2

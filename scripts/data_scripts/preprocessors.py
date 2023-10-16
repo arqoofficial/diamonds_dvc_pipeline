@@ -89,7 +89,7 @@ def main():
     f_output = os.path.abspath(f_output)
 
     # params
-    params = dict(yaml.safe_load(open(base_path / "params.yaml"))["pipeline"])
+    params = dict(yaml.safe_load(open(base_path / "params.yaml"))["preprocessors"])
 
     # main
     csv_pipeline(preprocessors, f_input, f_output, params)
