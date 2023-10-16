@@ -25,7 +25,7 @@ def check_input(
     f_input = os.path.abspath(sys.argv[1])
     if not Path(f_input).exists():
         logger.error(
-            "diamonds csv not found, please check path correctnes: " f"`{f_input}`"
+            "Input file not found, please check path correctnes: " f"`{f_input}`"
         )
         raise SystemExit
     return f_input
@@ -71,7 +71,7 @@ def csv_pipeline(
     f_output: str,
     params: Optional[dict] = None,
 ) -> None:
-    """Gets specific function and performs it with csv read and saving"""
+    """Gets specific function and performs it with csv reading and saving"""
     df = df_from_path(f_input)
     if params:
         df = func(df, params)
