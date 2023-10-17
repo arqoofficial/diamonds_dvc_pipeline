@@ -41,5 +41,5 @@ def download_dataset(api: KaggleApi) -> None:
 
 
 if __name__ == "__main__":
-    logger.info("Start get_data.py script")
+    logger.debug("Script get_data.py was started")
     download_dataset(auth_kaggle())

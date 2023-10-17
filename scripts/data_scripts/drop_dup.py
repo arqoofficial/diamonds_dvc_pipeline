@@ -20,6 +20,7 @@ def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     """Main function for drop_dup.py script"""
+    logger.debug("Script drop_dup.py was started")
     # paths
     f_input = check_input(2, "drop_dup.py", ["data-file"])
     f_output = Path(__file__).parents[2] / "data" / "stage1" / "diamonds.csv"

@@ -37,6 +37,7 @@ def drop_outliers(df: pd.DataFrame, params: dict) -> None:
 
 def main():
     """Main function for drop_outliers.py script"""
+    logger.debug("Script drop_outliers.py was started")
     # paths
     f_input = check_input(2, "drop_outliers.py", ["data-file"])
     base_path = Path(__file__).parents[2]

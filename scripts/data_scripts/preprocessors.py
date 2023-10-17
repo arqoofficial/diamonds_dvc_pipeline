@@ -80,9 +80,10 @@ def preprocessors(df: pd.DataFrame, params: dict) -> Pipeline:
 
 
 def main():
-    """Main function for pipeline.py script"""
+    """Main function for preprocessors.py script"""
+    logger.debug("Script preprocessors.py was started")
     # paths
-    f_input = check_input(2, "pipeline.py", ["data-file"])
+    f_input = check_input(2, "preprocessors.py", ["data-file"])
     base_path = Path(__file__).parents[2]
     f_output = base_path / "data" / "stage4" / "diamonds.csv"
     f_output.parent.mkdir(parents=True, exist_ok=True)

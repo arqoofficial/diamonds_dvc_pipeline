@@ -44,6 +44,7 @@ def split_df(
 
 def main():
     """Main function for train_test_split.py script"""
+    logger.debug("Script train_test_split.py was started")
     # paths
     f_input = check_input(2, "train_test_split.py", ["data-file"])
     base_path = Path(__file__).parents[2]

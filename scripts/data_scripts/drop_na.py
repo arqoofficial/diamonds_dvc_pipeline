@@ -21,6 +21,7 @@ def drop_na(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     """Main function for drop_na.py script"""
+    logger.debug("Script drop_na.py was started")
     # paths
     f_input = check_input(2, "drop_na.py", ["data-file"])
     f_output = Path(__file__).parents[2] / "data" / "stage2" / "diamonds.csv"
