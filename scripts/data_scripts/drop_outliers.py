@@ -5,7 +5,7 @@ import pandas as pd
 import yaml
 from loguru import logger
 
-from utils import check_input, csv_pipeline, handle_exception
+from utils import check_input, csv_pipeline, handle_exception, check_file_exists
 
 
 def drop_outliers(df: pd.DataFrame, params: dict) -> None:
@@ -39,7 +39,7 @@ def main():
     """Main function for drop_outliers.py script"""
     logger.debug("Script drop_outliers.py was started")
     # paths
-    f_input = check_input(2, "drop_outliers.py", ["data-file"])
+    f_input = check_file_exists(check_input(2, "drop_outliers.py", ["data-file"]))
     base_path = Path(__file__).parents[2]
     f_output = base_path / "data" / "stage3" / "diamonds.csv"
     f_output.parent.mkdir(parents=True, exist_ok=True)

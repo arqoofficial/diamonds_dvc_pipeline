@@ -14,7 +14,7 @@ from sklearn.preprocessing import (
     StandardScaler,
 )
 
-from utils import check_input, csv_pipeline, handle_exception
+from utils import check_input, csv_pipeline, handle_exception, check_file_exists
 
 
 def get_typed_columns(df: pd.DataFrame) -> tuple:
@@ -83,7 +83,7 @@ def main():
     """Main function for preprocessors.py script"""
     logger.debug("Script preprocessors.py was started")
     # paths
-    f_input = check_input(2, "preprocessors.py", ["data-file"])
+    f_input = check_file_exists(check_input(2, "preprocessors.py", ["data-file"]))
     base_path = Path(__file__).parents[2]
     f_output = base_path / "data" / "stage4" / "diamonds.csv"
     f_output.parent.mkdir(parents=True, exist_ok=True)

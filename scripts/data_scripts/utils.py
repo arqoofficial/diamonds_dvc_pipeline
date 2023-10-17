@@ -8,11 +8,22 @@ import pandas as pd
 from loguru import logger
 
 
+def check_file_exists(file: str) -> str:
+    """Checks file existance and returns proper abspath if file exists"""
+    file = os.path.abspath(file)
+    if not Path(file).exists():
+        logger.error(
+            "Input file not found, please check path correctnes: " f"`{file}`"
+        )
+        raise SystemExit
+    return file
+
+
 def check_input(
     args_number: int,
     script: str,
     args_list: list[str],
-) -> str:
+) -> list[str]:
     """Checks sys.argv input and returns correct input path"""
     # check args
     if len(sys.argv) != args_number:
@@ -20,30 +31,19 @@ def check_input(
         logger.error(f"Arguments error. Usage:\t`python3 {script} {args}`")
         logger.warning("SystemExit")
         sys.exit(1)
-
-    # check input file path
-    f_input = os.path.abspath(sys.argv[1])
-    if not Path(f_input).exists():
-        logger.error(
-            "Input file not found, please check path correctnes: " f"`{f_input}`"
-        )
-        raise SystemExit
-    
-    if args_number == 2:
-        return f_input
-    elif args_number == 3:
-        name = str(sys.argv[2])
-        return f_input, name
+    if len(sys.argv) == 2:
+        return sys.argv[1]
+    else:
+        return sys.argv[1:]
 
 
 def handle_exception(e: Exception, message: Optional[str] = None) -> None:
-    """Handles exception, shows message if specified, raises SystemExit"""
+    """Handles Exception, shows message if specified, raises Exception"""
     error_type = type(e).__name__
     logger.error(f"An error occurred: {error_type}. {e}")
     if message:
         logger.warning(message)
     raise type(e)
-    # raise SystemExit
 
 
 def df_from_path(f_input: str, print_info: bool = False) -> pd.DataFrame:

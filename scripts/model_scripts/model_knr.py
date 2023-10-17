@@ -8,7 +8,7 @@ import yaml
 from loguru import logger
 from sklearn.neighbors import KNeighborsRegressor
 
-from utils import check_input, handle_exception
+from utils import check_input, handle_exception, check_file_exists
 
 
 def dump_model(model: Any, f_output: str) -> None:
@@ -38,6 +38,7 @@ def main():
     logger.debug("Script model_knr.py was started")
     # paths
     f_input, model_name = check_input(3, "model_knr.py", ["data-file", "model"])
+    f_input = check_file_exists(f_input)
     base_path = Path(__file__).parents[2]
     f_output = base_path / "models" / f"{model_name}.pkl"
     f_output.parent.mkdir(parents=True, exist_ok=True)

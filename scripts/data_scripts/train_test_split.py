@@ -5,7 +5,7 @@ import yaml
 from loguru import logger
 from sklearn.model_selection import train_test_split
 
-from utils import check_input, df_from_path, handle_exception
+from utils import check_input, df_from_path, handle_exception, check_file_exists
 
 
 def split_df(
@@ -46,7 +46,7 @@ def main():
     """Main function for train_test_split.py script"""
     logger.debug("Script train_test_split.py was started")
     # paths
-    f_input = check_input(2, "train_test_split.py", ["data-file"])
+    f_input = check_file_exists(check_input(2, "train_test_split.py", ["data-file"]))
     base_path = Path(__file__).parents[2]
     stage_path = base_path / "data" / "stage5"
     stage_path.mkdir(parents=True, exist_ok=True)

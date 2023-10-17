@@ -36,3 +36,6 @@ train:
   target: "price"
   weights: distance
   n_neighbors: 8
+
+evaluate:
+  target: "price"
