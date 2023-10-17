@@ -7,10 +7,7 @@ import pandas as pd
 import yaml
 import json
 from loguru import logger
-from sklearn.metrics import (
-    mean_squared_error as mse,
-    r2_score
-)
+from sklearn.metrics import mean_squared_error as mse, r2_score
 
 from utils import check_input, handle_exception, check_file_exists, df_from_path
 
@@ -82,11 +79,11 @@ def main():
     score = model.score(X, y)
     logger.info(f"Model score: {score}")
     save_score(f_output, {"score": score})
-    
+
     y_prediction = model.predict(X)
     extended_scores = get_extended_scores(y, y_prediction)
     save_score(f_output_extended, extended_scores)
-    
+
 
 if __name__ == "__main__":
     try:

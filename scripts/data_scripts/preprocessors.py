@@ -52,7 +52,11 @@ def preprocessors(df: pd.DataFrame, params: dict) -> Pipeline:
     num_pipe = make_pipeline(poly_features, scaler)
 
     cat_pipe = make_pipeline(
-        OneHotEncoder(drop="if_binary", handle_unknown="ignore", sparse_output=False)
+        OneHotEncoder(
+            drop="if_binary",
+            handle_unknown="ignore",
+            sparse_output=False,
+        )
     )
     column_name = params["target"]
     X = df.drop(columns=column_name)
@@ -60,19 +64,20 @@ def preprocessors(df: pd.DataFrame, params: dict) -> Pipeline:
     cat_columns, num_columns = get_typed_columns(X)
 
     preprocessors = make_column_transformer(
-        (num_pipe, num_columns), (cat_pipe, cat_columns)
+        (num_pipe, num_columns),
+        (cat_pipe, cat_columns),
     )
     logger.success("Preprocessors are ready")
-    
+
     preprocessors.fit(X)
     logger.info("Preprocessors are fitted")
 
     X_preprocessors = preprocessors.transform(X)
     logger.success("DataFrame is transormed")
-    
+
     df_preprocessors = pd.DataFrame(
         data=X_preprocessors,
-        columns=preprocessors.get_feature_names_out()
+        columns=preprocessors.get_feature_names_out(),
     )
     result_df = pd.concat([df_preprocessors, y], axis=1)
     logger.info(f"Result DataFrame shape: {result_df.shape}")

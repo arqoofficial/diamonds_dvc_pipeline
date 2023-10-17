@@ -12,9 +12,7 @@ def check_file_exists(file: str) -> str:
     """Checks file existance and returns proper abspath if file exists"""
     file = os.path.abspath(file)
     if not Path(file).exists():
-        logger.error(
-            "Input file not found, please check path correctnes: " f"`{file}`"
-        )
+        logger.error(f"Input file not found, please check path correctnes: `{file}`")
         raise SystemExit
     return file
 

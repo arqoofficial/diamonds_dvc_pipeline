@@ -21,9 +21,9 @@ def dump_model(model: Any, f_output: str) -> None:
 def prepare_knr(df: pd.DataFrame, params: dict) -> Any:
     """Gets DataFrame and params and prepares KNeighborsRegressor with specified params"""
     model = KNeighborsRegressor(
-        n_neighbors=params["n_neighbors"], 
+        n_neighbors=params["n_neighbors"],
         weights=params["weights"],
-        n_jobs=-1
+        n_jobs=-1,
     )
     target_column = params["target"]
     X = df.drop(columns=target_column)
