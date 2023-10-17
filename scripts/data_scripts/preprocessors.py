@@ -54,9 +54,9 @@ def preprocessors(df: pd.DataFrame, params: dict) -> Pipeline:
     cat_pipe = make_pipeline(
         OneHotEncoder(drop="if_binary", handle_unknown="ignore", sparse_output=False)
     )
-    
-    X = df.drop(columns="price")
-    y = df[["price"]]
+    column_name = params["target"]
+    X = df.drop(columns=column_name)
+    y = df[[column_name]]
     cat_columns, num_columns = get_typed_columns(X)
 
     preprocessors = make_column_transformer(

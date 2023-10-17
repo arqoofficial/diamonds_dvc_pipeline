@@ -48,7 +48,7 @@ def main():
 
     # main
     df = pd.read_csv(f_input)
-    logger.info(f"CSV-file was readed from `{f_input}`")
+    logger.info(f"CSV-file was read from `{f_input}`")
     model = prepare_knr(df, params)
     dump_model(model, f_output)
 

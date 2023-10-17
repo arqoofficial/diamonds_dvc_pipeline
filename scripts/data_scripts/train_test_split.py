@@ -10,12 +10,12 @@ from utils import check_input, df_from_path, handle_exception
 
 def split_df(
     df: pd.DataFrame,
-    target_column: str,
     params: dict,
     train_output: str,
     test_output: str,
 ) -> None:
     """Splits input df"""
+    target_column = params["target"]
     logger.info(f"Start split_df() function with target column `{target_column}`")
     X = df.drop(columns=[target_column])
     y = df[[target_column]]
@@ -61,7 +61,6 @@ def main():
     df = df_from_path(f_input)
     split_df(
         df=df,
-        target_column="price",
         params=params,
         train_output=f_output_train,
         test_output=f_output_test,
