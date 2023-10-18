@@ -25,6 +25,10 @@ def prepare_knr(df: pd.DataFrame, params: dict) -> Any:
         weights=params["weights"],
         n_jobs=-1,
     )
+    logger.success(f"Model {type(model).__name__} was initialized")
+    logger.info("Model's parameters:")
+    logger.info(f"n_neighbors = {params['n_neighbors']}")
+    logger.info(f"weights = {params['weights']}")
     target_column = params["target"]
     X = df.drop(columns=target_column)
     y = df[[target_column]]

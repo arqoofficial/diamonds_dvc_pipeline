@@ -76,9 +76,6 @@ def main():
     df = df_from_path(f_input)
     X, y = split_df(df, params)
     model = load_model(model_path)
-    score = model.score(X, y)
-    logger.info(f"Model score: {score}")
-    save_score(f_output, {"score": score})
 
     y_prediction = model.predict(X)
     extended_scores = get_extended_scores(y, y_prediction)
