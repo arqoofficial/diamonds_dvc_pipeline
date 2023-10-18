@@ -53,7 +53,7 @@ conda activate diamonds-dvc
 python -m pip install -r requirements.txt (or requirements-dev.txt)
 ```
 ## Getting raw data
-To get raw diamonds.csv you need to provide your Kaggle-token (follow [Kaggle Public API instructions](https://www.kaggle.com/docs/api). 
+To get raw diamonds.csv you need to provide your Kaggle-token (follow [Kaggle Public API instructions](https://www.kaggle.com/docs/api)). 
 
 Command for raw data download:
 ```
