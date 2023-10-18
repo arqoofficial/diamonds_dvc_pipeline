@@ -70,7 +70,7 @@ stages:
     outs:
     - models/
   evaluate:
-    cmd: python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl
+    cmd: python3 scripts/model_scripts/evaluate.py data/stage5/test.csv models/model_knr.pkl
     deps:
     - data/stage5/test.csv
     - models/model_knr.pkl

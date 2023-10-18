@@ -84,4 +84,4 @@ dvc stage add \
 --params train.weights \
 --params train.n_neighbors \
 -M evaluate/scores_extended.json \
-'python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl'
+'python3 scripts/model_scripts/evaluate.py data/stage5/test.csv models/model_knr.pkl'

@@ -1,57 +1,31 @@
-# drop_outliers:
-#   carat: 
-#     min: 0
-#     max: 3
-#   depth:
-#     min: 55
-#     max: 70
-#   table:
-#     min: 50
-#     max: 70
-#   price:
-#     min: null
-#     max: null
-#   x:
-#     min: 3
-#     max: 9
-#   y:
-#     min: 3
-#     max: 10
-#   z:
-#     min: 2
-#     max: 6
-
-
 drop_outliers:
   carat: 
-    min: null
-    max: null
+    min: 0
+    max: 3
   depth:
-    min: null
-    max: null
+    min: 55
+    max: 70
   table:
-    min: null
-    max: null
+    min: 50
+    max: 70
   price:
     min: null
     max: null
   x:
-    min: null
-    max: null
+    min: 3
+    max: 9
   y:
-    min: null
-    max: null
+    min: 3
+    max: 10
   z:
-    min: null
-    max: null
+    min: 2
+    max: 6
 
 preprocessors:
   target: "price"
-  # PF_degree: 3
-  PF_degree: 1
+  PF_degree: 3
   PF_interaction: false
-  # scalers: minmax
-  scalers: standard
+  scalers: minmax
 
 split:
   target: "price"
@@ -60,9 +34,8 @@ split:
 
 train:
   target: "price"
-  weights: uniform
-  n_neighbors: 7
-  # n_neighbors: 8
+  weights: distance
+  n_neighbors: 8
 
 evaluate:
   target: "price"

@@ -47,53 +47,53 @@ stages:
       size: 1889
     params:
       params.yaml:
-        drop_outliers.carat.max:
-        drop_outliers.carat.min:
-        drop_outliers.depth.max:
-        drop_outliers.depth.min:
+        drop_outliers.carat.max: 3
+        drop_outliers.carat.min: 0
+        drop_outliers.depth.max: 70
+        drop_outliers.depth.min: 55
         drop_outliers.price.max:
         drop_outliers.price.min:
-        drop_outliers.table.max:
-        drop_outliers.table.min:
-        drop_outliers.x.min:
-        drop_outliers.y.max:
-        drop_outliers.z.max:
+        drop_outliers.table.max: 70
+        drop_outliers.table.min: 50
+        drop_outliers.x.min: 3
+        drop_outliers.y.max: 10
+        drop_outliers.z.max: 6
     outs:
     - path: data/stage3/
       hash: md5
-      md5: ecca97e1e526cb852d82e606350ace0d.dir
-      size: 2565059
+      md5: 0cbe15cde840068bfec9ed342c9ac686.dir
+      size: 2559339
       nfiles: 1
   preprocessors:
     cmd: python3 scripts/data_scripts/preprocessors.py data/stage3/diamonds.csv
     deps:
     - path: data/stage3/diamonds.csv
       hash: md5
-      md5: a914e1a1f8a4605df22bc632448b85e0
-      size: 2565059
+      md5: 6ef72a1ffda63c15c266d49872e47902
+      size: 2559339
     - path: scripts/data_scripts/preprocessors.py
       hash: md5
       md5: 0616922b9646b98c1d31d134ec70d69d
       size: 3111
     params:
       params.yaml:
-        preprocessors.PF_degree: 1
+        preprocessors.PF_degree: 3
         preprocessors.PF_interaction: false
-        preprocessors.scalers: standard
+        preprocessors.scalers: minmax
         preprocessors.target: price
     outs:
     - path: data/stage4/
       hash: md5
-      md5: b93a451ec16392961ef9d5194e54eafa.dir
-      size: 10892902
+      md5: dfdf94951d744d82b464a8b8c1d1f283.dir
+      size: 91629729
       nfiles: 1
   split:
     cmd: python3 scripts/data_scripts/train_test_split.py data/stage4/diamonds.csv
     deps:
     - path: data/stage4/diamonds.csv
       hash: md5
-      md5: 838811675bd175b1bd81320443c17c3d
-      size: 10892902
+      md5: 1b72c524243729b540f6d2903718bec9
+      size: 91629729
     - path: scripts/data_scripts/train_test_split.py
       hash: md5
       md5: 7502d640513045267e54f21aea96db89
@@ -106,53 +106,53 @@ stages:
     outs:
     - path: data/stage5/
       hash: md5
-      md5: aeac0fee5bfb7b08fe374029eee57cd5.dir
-      size: 10796824
+      md5: 48000e8ed26ba692737d41997f9cbd52.dir
+      size: 88105754
       nfiles: 2
   train:
     cmd: python3 scripts/model_scripts/model_knr.py data/stage5/train.csv model_knr
     deps:
     - path: data/stage5/train.csv
       hash: md5
-      md5: d9a029405c0ffff78686cb0ced31fb7b
-      size: 7557355
+      md5: c561d72a6ed86aadf0b389d23448eb7b
+      size: 61671498
     - path: scripts/model_scripts/model_knr.py
       hash: md5
       md5: 403914c9ce062e4c6786641530c3dac3
       size: 1999
     params:
       params.yaml:
-        train.n_neighbors: 7
+        train.n_neighbors: 8
         train.target: price
-        train.weights: uniform
+        train.weights: distance
     outs:
     - path: models/
       hash: md5
-      md5: fa83c89cca532a24b234adbcee8e923a.dir
-      size: 8134775
+      md5: b56f2e0a429ce97672f1acf1a0d035a1.dir
+      size: 31260514
       nfiles: 1
   evaluate:
-    cmd: python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl
+    cmd: python3 scripts/model_scripts/evaluate.py data/stage5/test.csv models/model_knr.pkl
     deps:
     - path: data/stage5/test.csv
       hash: md5
-      md5: ce0c424d5414f7dcd9544595309bd52c
-      size: 3239469
+      md5: 5e7178412238e8987ec06459b3edf533
+      size: 26434256
     - path: models/model_knr.pkl
       hash: md5
-      md5: ed6ab21715cae0b90f221d9e93e68fc5
-      size: 8134775
+      md5: e286eb5b970b1cc958c2367ba3bef488
+      size: 31260514
     - path: scripts/model_scripts/evaluate.py
       hash: md5
       md5: 275765a71e2e4d4c080126233b3b443a
       size: 2798
     params:
       params.yaml:
-        train.n_neighbors: 7
+        train.n_neighbors: 8
         train.target: price
-        train.weights: uniform
+        train.weights: distance
     outs:
     - path: evaluate/scores_extended.json
       hash: md5
-      md5: e1130be9fc03a5da1381cf1a666851ff
+      md5: 3ef21d4ead86037a44cb4a5f522f01a5
       size: 60
