@@ -45,6 +45,7 @@ dvc stage add \
 --deps data/stage3/diamonds.csv \
 --deps scripts/data_scripts/preprocessors.py \
 --outs data/stage4/ \
+--params preprocessors.target \
 --params preprocessors.PF_degree \
 --params preprocessors.PF_interaction \
 --params preprocessors.scalers \
@@ -56,7 +57,31 @@ dvc stage add \
 --deps data/stage4/diamonds.csv \
 --deps scripts/data_scripts/train_test_split.py \
 --outs data/stage5/ \
+--params split.target \
 --params split.seed \
 --params split.split_ratio \
 --force \
 'python3 scripts/data_scripts/train_test_split.py data/stage4/diamonds.csv'
+
+dvc stage add \
+--name train \
+--deps data/stage5/train.csv \
+--deps scripts/model_scripts/model_knr.py \
+--outs models/ \
+--params train.target \
+--params train.weights \
+--params train.n_neighbors \
+--force \
+'python3 scripts/model_scripts/model_knr.py data/stage5/train.csv model_knr'
+
+dvc stage add \
+--name evaluate \
+--deps models/model_knr.pkl \
+--deps data/stage5/test.csv \
+--deps scripts/model_scripts/evaluate.py \
+--outs evaluate/ \
+--params train.target \
+--params train.weights \
+--params train.n_neighbors \
+--force \
+'python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl'

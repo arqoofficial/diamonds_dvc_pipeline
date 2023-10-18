@@ -45,12 +45,6 @@ drop_outliers:
     min: null
     max: null
 
-
-split:
-  target: "price"
-  seed: 42
-  split_ratio: 0.3
-
 preprocessors:
   target: "price"
   # PF_degree: 3
@@ -58,6 +52,11 @@ preprocessors:
   PF_interaction: false
   # scalers: minmax
   scalers: standard
+
+split:
+  target: "price"
+  seed: 42
+  split_ratio: 0.3
 
 train:
   target: "price"

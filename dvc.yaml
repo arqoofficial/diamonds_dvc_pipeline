@@ -44,6 +44,7 @@ stages:
     - preprocessors.PF_degree
     - preprocessors.PF_interaction
     - preprocessors.scalers
+    - preprocessors.target
     outs:
     - data/stage4/
   split:
@@ -54,5 +55,29 @@ stages:
     params:
     - split.seed
     - split.split_ratio
+    - split.target
     outs:
     - data/stage5/
+  train:
+    cmd: python3 scripts/model_scripts/model_knr.py data/stage5/train.csv model_knr
+    deps:
+    - data/stage5/train.csv
+    - scripts/model_scripts/model_knr.py
+    params:
+    - train.n_neighbors
+    - train.target
+    - train.weights
+    outs:
+    - models/
+  evaluate:
+    cmd: python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl
+    deps:
+    - data/stage5/test.csv
+    - models/model_knr.pkl
+    - scripts/model_scripts/evaluate.py
+    params:
+    - train.n_neighbors
+    - train.target
+    - train.weights
+    outs:
+    - evaluate/
