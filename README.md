@@ -1,4 +1,4 @@
-# mlops_2
+# Diamonds dvc pipeline
 Repository for diamonds' price prediction using `KNeighborsRegressor` from `sklearn.neighbors`.
 
 Raw data was taken from [Kaggle competition](https://www.kaggle.com/datasets/shivam2503/diamonds).
