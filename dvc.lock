@@ -152,8 +152,7 @@ stages:
         train.target: price
         train.weights: uniform
     outs:
-    - path: evaluate/
+    - path: evaluate/scores_extended.json
       hash: md5
-      md5: 073d001e07718ac6b18cbfac1ba42358.dir
+      md5: e1130be9fc03a5da1381cf1a666851ff
       size: 60
-      nfiles: 1

@@ -75,13 +75,13 @@ dvc stage add \
 'python3 scripts/model_scripts/model_knr.py data/stage5/train.csv model_knr'
 
 dvc stage add \
+--force \
 --name evaluate \
 --deps models/model_knr.pkl \
 --deps data/stage5/test.csv \
 --deps scripts/model_scripts/evaluate.py \
---outs evaluate/ \
 --params train.target \
 --params train.weights \
 --params train.n_neighbors \
---force \
+-M evaluate/scores_extended.json \
 'python3 scripts/model_scripts/evaluate.py data/stage5/train.csv models/model_knr.pkl'
